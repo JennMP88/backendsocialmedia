@@ -4,13 +4,13 @@ const UserService = require('../services/users');
 
 // POST - CREATE USER
 usersRouter.post('/register', (req, res, next) => {
-  const {username,named,email,avatar} = req.body;
+  const { username, uid, named, email, avatar} = req.body;
 //   const {id} = req.params;
     // console.log(req.body)
 
     console.log(username)
 
-  UserService.create(username,named,email,avatar)
+  UserService.create(username, uid, named,email,avatar)
     .then(data => {
       res.json({success: `Created User named ${named}`});
     })
@@ -21,7 +21,7 @@ usersRouter.post('/register', (req, res, next) => {
 });
 
 
-// GET - User Login 
+// GET - User Login
 usersRouter.get('/login', (req, res, next) => {
   const {named} = req.body;
 
@@ -47,7 +47,7 @@ usersRouter.get('/login', (req, res, next) => {
 //     })
 // });
 
-// GET - READ 
+// GET - READ
 //Q3--------NEWSFEED
 
 usersRouter.get('/userpost/:id', (req, res, next) => {
@@ -65,11 +65,11 @@ console.log('id', id)
 });
 
 
-//READ A PARTICULAR USER BY NAME 
-usersRouter.get('/:username', (req, res, next) => {
-  const {username} = req.params;
+//READ A PARTICULAR USER BY NAME
+usersRouter.get('/:uid', (req, res, next) => {
+  const {uid} = req.params;
 
-  UserService.read(username)
+  UserService.read(uid)
     .then(data => {
       res.json(data);
     })
@@ -83,7 +83,7 @@ usersRouter.get('/:username', (req, res, next) => {
 usersRouter.put('/:id', (req, res, next) => {
   const {username,named,email,avatar} = req.body;
   const {id} = req.params;
-  
+
 
   UserService.update(id,username,named,email,avatar)
     .then(data => {

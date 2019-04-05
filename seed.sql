@@ -5,6 +5,7 @@ CREATE DATABASE socialmedia;
 
 CREATE TABLE users (
 id SERIAL PRIMARY KEY,
+uid VARCHAR NOT NULL, --unique
 username VARCHAR NOT NULL, --unique
 named VARCHAR NOT NULL,
 email VARCHAR NOT NULL,    --unique
@@ -41,15 +42,15 @@ person_being_followed_id  INT REFERENCES users(id) NOT NULL); --- person_being_f
 --     person_being_followed_id users(id) NOT NULL
 --     person_following_id users(id) NOT NULL
 --     type VARCHAR
-    
--- ) 
+
+-- )
 
 
-INSERT INTO users (username,named,email,avatar) VALUES
-('yahweh','yahweh','y@gmail.com',NULL),
-('Elohim','Nissi','iamtheam.com','el.jpeg'),
-('jesus','the messiah','messiah@yahoo.com','pic.png'),
-('luke','lucas','lucas@gmail.com','lc.png');
+INSERT INTO users (username,uid,named,email,avatar) VALUES
+('yahweh', 'abc1', 'yahweh','y@gmail.com',NULL),
+('Elohim', 'abc2', 'Nissi','iamtheam.com','el.jpeg'),
+('jesus', 'abc3', 'the messiah','messiah@yahoo.com','pic.png'),
+('luke', 'abc4', 'lucas','lucas@gmail.com','lc.png');
 
 INSERT INTO posts (user_id,image_url,caption,title,number_of_comments) VALUES
 (2,'zoo.jpg','noah arc','refer to genesis',0),
@@ -73,12 +74,3 @@ INSERT INTO comments (post_id,user_id,texts) VALUES
 (1,2,'nice'),
 (2,2,'let there be life'),
 (2,3,'glad to be welcomed');
-
-
-
-
-
-
-
-
-
