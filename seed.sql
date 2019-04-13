@@ -46,6 +46,12 @@ person_being_followed_id  INT REFERENCES users(id) NOT NULL); --- person_being_f
 -- )
 
 
+INSERT INTO users (username,uid,named,email,avatar) VALUES
+('yahweh', 'abc1', 'yahweh','y@gmail.com',NULL),
+('Elohim', 'abc2', 'Nissi','iamtheam.com','el.jpeg'),
+('jesus', 'abc3', 'the messiah','messiah@yahoo.com','pic.png'),
+('luke', 'abc4', 'lucas','lucas@gmail.com','lc.png');
+
 INSERT INTO users (username,uid,named,email,postedpic,avatar) VALUES
 ('yahweh', 'abc1', 'yahweh','y@gmail.com','https://media3.giphy.com/media/xzX3aNvsYw1XO/giphy.gif','https://media0.giphy.com/media/KIR860ssE6ITK/giphy.gif'),
 ('Elohim', 'abc2', 'Nissi','iamtheam.com','https://media3.giphy.com/media/VazO3hXAsNuDu/giphy.gif','https://media1.giphy.com/media/IvtWZCzn61hmM/giphy.gif'),

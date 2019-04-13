@@ -2,10 +2,10 @@ const {db} = require('./dbConnect');
 const UserService = {};
 
 //register to create a new user-p1
-UserService.create = (uid, username,named,email,postedpic,avatar) => {
-  const sql = "INSERT INTO users (uid, username,named,email,postedpic,avatar) VALUES (${uid}, ${username}, ${named}, ${email}, ${postedpic}, ${avatar})";
+UserService.create = (username, uid, named,email,avatar) => {
+  const sql = "INSERT INTO users (username, uid, named,email,avatar) VALUES (${username}, ${uid}, ${named}, ${email}, ${avatar})";
   console.log(username)
-  return db.none(sql, {uid, username,named,email,postedpic,avatar});
+  return db.none(sql, {username, uid, named,email,avatar});
 }
 
 //login user -p1
@@ -20,14 +20,14 @@ UserService.login = (named) => {
 // Q2 User Profile -- Users + Posts + followers table
 // UserService.readPosts = (username,avatar,image_url,person_being_followed_id,person_following_id) => {
 //   const sql = `
-//   SELECT users.username, users.avatar, posts.image_url, followers.person_following_id, person_being_followed_id 
+//   SELECT users.username, users.avatar, posts.image_url, followers.person_following_id, person_being_followed_id
 //   FROM users, posts, followers
 //   WHERE users.id = ${id} `
 //   return db.any(sql, {id});
 // }
 
-//READ THE USER STUFF 
-// News feed -- 
+//READ THE USER STUFF
+// News feed --
 UserService.readPostsFeed = ([id]) => {
   const sql = `
  SELECT users.username, users.avatar, posts.number_of_comments,posts.image_url, posts.caption, COUNT(likes.post_id) as number_of_likes
@@ -44,27 +44,27 @@ UserService.readPostsFeed = ([id]) => {
 
 
 //READ A PARTICULAR USER by NAME
-UserService.read = (username) => {
+UserService.read = (uid) => {
   const sql = `
-  SELECT users.username
+  SELECT *
   FROM users
-  WHERE users.username = $[username] `
-  return db.any(sql, {username});
+  WHERE users.uid = $[uid] `
+  return db.any(sql, {uid});
 }
 
-//PUT-USER UPDATE 
+//PUT-USER UPDATE
 UserService.update = (id,username,named,email,avatar) => {
   const sql = `
   UPDATE users
   SET
     username=$[username],
-    named=$[named], 
+    named=$[named],
     email=$[email],
     avatar=$[avatar]
   WHERE
     id=${id}
   `;
- 
+
   return db.none(sql, {id,username,named,email,avatar});
 }
 
@@ -84,7 +84,7 @@ UserService.readUserStats=(id)=>{
 const sql=`
 SELECT users.username, users.avatar,COUNT(being_followed.person_being_followed_id) as followers, COUNT(follows.person_being_followed_id) as following
 	FROM users
-	LEFT JOIN followers follows ON users.id=follows.person_following_id 
+	LEFT JOIN followers follows ON users.id=follows.person_following_id
 	LEFT JOIN followers being_followed ON users.id=being_followed.person_being_followed_id
 	WHERE users.id=$[id]
 GROUP BY users.username, users.avatar`;
@@ -94,12 +94,12 @@ return db.any(sql,{id})}
 //bottom part to user profile
 UserService.readUserProfile=(id)=>{
   const sql=
-`SELECT posts.image_url 
+`SELECT posts.image_url
 	FROM posts
   WHERE posts.user_id=$[id]`;
-  
+
   return db.any(sql,{id})}
 
 
-  
+
 module.exports = UserService;
