@@ -4,7 +4,7 @@ const FollowService = {};
 //followers list:followers?
 FollowService.readfollowers = (id) => {
 const sql=
-    `SELECT users.username
+    `SELECT users.username,users.avatar
     FROM followers
     JOIN users ON users.id=followers.person_following_id
         WHERE followers.person_being_followed_id=$[id]
@@ -13,7 +13,7 @@ const sql=
 
 FollowService.readiamfollowing= (id) => {
         const sql=
-            `SELECT users.username
+            `SELECT users.username,users.avatar
             FROM followers
             JOIN users ON users.id=followers.person_being_followed_id
             WHERE followers.person_following_id=$[id] `

@@ -4,13 +4,13 @@ const UserService = require('../services/users');
 
 // POST - CREATE USER
 usersRouter.post('/register', (req, res, next) => {
-  const {username,named,email,avatar} = req.body;
+  const {uid, username, named, email, postedpic, avatar} = req.body;
 //   const {id} = req.params;
     // console.log(req.body)
 
     console.log(username)
 
-  UserService.create(username,named,email,avatar)
+  UserService.create(uid,username,named,email,postedpic,avatar)
     .then(data => {
       res.json({success: `Created User named ${named}`});
     })

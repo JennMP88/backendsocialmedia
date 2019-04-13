@@ -2,10 +2,10 @@ const {db} = require('./dbConnect');
 const UserService = {};
 
 //register to create a new user-p1
-UserService.create = (username,named,email,avatar) => {
-  const sql = "INSERT INTO users (username,named,email,avatar) VALUES (${username}, ${named}, ${email}, ${avatar})";
+UserService.create = (uid, username,named,email,postedpic,avatar) => {
+  const sql = "INSERT INTO users (uid, username,named,email,postedpic,avatar) VALUES (${uid}, ${username}, ${named}, ${email}, ${postedpic}, ${avatar})";
   console.log(username)
-  return db.none(sql, {username,named,email,avatar});
+  return db.none(sql, {uid, username,named,email,postedpic,avatar});
 }
 
 //login user -p1
